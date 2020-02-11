@@ -1,0 +1,94 @@
+---
+title: "Lecture_9"
+author: "Alex Weitzel"
+date: "2/4/2020"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+K-means clustering algorithms
+
+111-11---111------1111
+pick a k
+k = 3
+
+k looks at the variation within clusters.
+
+
+it looks to me like the order in which something iterates over values in a k-mean will change the grouping structure...
+
+
+you can pick the number of clusters with a Scree plot.  plotting the number of clusters (x) against the Total variation within clusters "sum of squares, SS" (y). There's a point known as the 'elbow' (it's the top of the scree pile) in which you have larest decrease in SS.
+
+```{r}
+tmp <- c(rnorm(30,-3), rnorm(30,3))
+x <- cbind(x = tmp, y = rev(tmp))
+
+plot(x)
+
+this <- kmeans(x, centers = 2)
+
+plot(x, col = (this$cluster+1))
+points(this$centers, col = "blue", pch = 15)
+
+```
+
+
+
+Hierarchical clustering
+  Number of clusters is not known ahead of time
+  two kinds
+    bottom-up
+    top-down
+
+The main hierarchical clustering function in R is called hclust()
+An important point here is that you have to calcualate the distance 
+matrix deom your input data before calling hclust())
+
+make sure to do "complete", "average", and "single"
+
+```{r}
+dist_matrix <- dist(x)
+
+hc <- hclust(d = dist_matrix)
+
+hc
+
+plot(hc)
+
+abline(h=max(hc$height), col="red", lty=2)
+
+plot(x, col = cutree(hc, k = 4))
+```
+
+
+```{r}
+grps <- cutree(hc, k = 3)
+table(grps)
+```
+
+
+```{r}
+uk_data <- read.csv("Data/UK_foods.csv", row.names = 1)
+uk_data
+
+dim(uk_data)
+
+
+pairs(uk_data, col=rainbow(10), pch=16)
+
+pca <- prcomp(t(uk_data))
+summary(pca)
+plot(pca$x[,"PC1"], pca$x[,"PC2"], xlab="PC1", ylab="PC2", xlim=c(-270,500))
+text(pca$x[,1], pca$x[,2], colnames(uk_data))
+
+attributes(pca)
+```
+
+
+
+
