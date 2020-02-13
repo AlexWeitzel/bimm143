@@ -106,7 +106,7 @@ plot(wisc.pr$x[,1:2], col=diagnosis)
 ```
 
 
-```{r}
+```{r, include = FALSE}
 g <- as.factor(grps)
 levels(g)
 
@@ -124,7 +124,7 @@ rglwidget(width = 400, height = 400)
 ```
 
 
-```{r}
+```{r, include = FALSE}
 wisc.pr.hclust <- hclust(dist(wisc.pr$x[,1:7]), method="ward.D2")
 wisc.pr.hclust.clusters <- cutree(wisc.pr.hclust, k=2)
 
