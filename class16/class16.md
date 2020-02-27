@@ -463,6 +463,9 @@ attributes(keggres)
     ## $names
     ## [1] "greater" "less"    "stats"
 
+now run
+    pathview
+
 ``` r
 pathview(gene.data=foldchanges, pathway.id="hsa04110")
 ```
@@ -472,3 +475,85 @@ pathview(gene.data=foldchanges, pathway.id="hsa04110")
     ## Info: Working in directory /Users/alex_weitzel/Desktop/BIMM_143/R_Code/bimm143_github/class16
 
     ## Info: Writing image file hsa04110.pathview.png
+
+``` r
+pathview(gene.data=foldchanges, pathway.id="hsa04110", kegg.native=FALSE)
+```
+
+    ## 'select()' returned 1:1 mapping between keys and columns
+
+    ## Info: Working in directory /Users/alex_weitzel/Desktop/BIMM_143/R_Code/bimm143_github/class16
+
+    ## Info: Writing image file hsa04110.pathview.pdf
+
+``` r
+## Focus on top 5 upregulated pathways here for demo purposes only
+keggrespathways <- rownames(keggres$greater)[1:5]
+
+# Extract the 8 character long IDs part of each string
+keggresids = substr(keggrespathways, start=1, stop=8)
+keggresids
+```
+
+    ## [1] "hsa04640" "hsa04630" "hsa00140" "hsa04142" "hsa04330"
+
+``` r
+pathview(gene.data=foldchanges, pathway.id=keggresids, species="hsa")
+```
+
+    ## 'select()' returned 1:1 mapping between keys and columns
+
+    ## Info: Working in directory /Users/alex_weitzel/Desktop/BIMM_143/R_Code/bimm143_github/class16
+
+    ## Info: Writing image file hsa04640.pathview.png
+
+    ## 'select()' returned 1:1 mapping between keys and columns
+
+    ## Info: Working in directory /Users/alex_weitzel/Desktop/BIMM_143/R_Code/bimm143_github/class16
+
+    ## Info: Writing image file hsa04630.pathview.png
+
+    ## 'select()' returned 1:1 mapping between keys and columns
+
+    ## Info: Working in directory /Users/alex_weitzel/Desktop/BIMM_143/R_Code/bimm143_github/class16
+
+    ## Info: Writing image file hsa00140.pathview.png
+
+    ## 'select()' returned 1:1 mapping between keys and columns
+
+    ## Info: Working in directory /Users/alex_weitzel/Desktop/BIMM_143/R_Code/bimm143_github/class16
+
+    ## Info: Writing image file hsa04142.pathview.png
+
+    ## Info: some node width is different from others, and hence adjusted!
+
+    ## 'select()' returned 1:1 mapping between keys and columns
+
+    ## Info: Working in directory /Users/alex_weitzel/Desktop/BIMM_143/R_Code/bimm143_github/class16
+
+    ## Info: Writing image file hsa04330.pathview.png
+
+``` r
+head(keggres$less)
+```
+
+    ##                                          p.geomean stat.mean        p.val
+    ## hsa04110 Cell cycle                   8.995727e-06 -4.378644 8.995727e-06
+    ## hsa03030 DNA replication              9.424076e-05 -3.951803 9.424076e-05
+    ## hsa03013 RNA transport                1.246882e-03 -3.059466 1.246882e-03
+    ## hsa03440 Homologous recombination     3.066756e-03 -2.852899 3.066756e-03
+    ## hsa04114 Oocyte meiosis               3.784520e-03 -2.698128 3.784520e-03
+    ## hsa00010 Glycolysis / Gluconeogenesis 8.961413e-03 -2.405398 8.961413e-03
+    ##                                             q.val set.size         exp1
+    ## hsa04110 Cell cycle                   0.001448312      121 8.995727e-06
+    ## hsa03030 DNA replication              0.007586381       36 9.424076e-05
+    ## hsa03013 RNA transport                0.066915974      144 1.246882e-03
+    ## hsa03440 Homologous recombination     0.121861535       28 3.066756e-03
+    ## hsa04114 Oocyte meiosis               0.121861535      102 3.784520e-03
+    ## hsa00010 Glycolysis / Gluconeogenesis 0.212222694       53 8.961413e-03
+
+``` r
+knitr::include_graphics("hsa00140.pathview.png")
+```
+
+<img src="hsa00140.pathview.png" width="1342" />

@@ -160,7 +160,10 @@ head(kegg.sets.hs, 3)
 foldchanges = res$log2FoldChange
 names(foldchanges) = res$entrez
 head(foldchanges)
+```
 
+
+```{r}
 # Get the results
 keggres = gage(foldchanges, gsets=kegg.sets.hs)
 
@@ -170,8 +173,29 @@ attributes(keggres)
 now run pathview
 ```{r}
 pathview(gene.data=foldchanges, pathway.id="hsa04110")
+pathview(gene.data=foldchanges, pathway.id="hsa04110", kegg.native=FALSE)
 
 ```
 
+```{r}
+## Focus on top 5 upregulated pathways here for demo purposes only
+keggrespathways <- rownames(keggres$greater)[1:5]
+
+# Extract the 8 character long IDs part of each string
+keggresids = substr(keggrespathways, start=1, stop=8)
+keggresids
+```
+
+```{r}
+pathview(gene.data=foldchanges, pathway.id=keggresids, species="hsa")
+```
+
+```{r}
+head(keggres$less)
+```
+
+```{r}
+knitr::include_graphics("hsa00140.pathview.png")
+```
 
 
